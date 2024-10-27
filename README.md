@@ -10,9 +10,9 @@ et mettre les cartes réseaux des VM en "Réseau interne" et choisir un nom de r
 ```console
 # apt install isc-dhcp-server
 ```
-3) Editer le fichier /etc/default/isc-dhcp-server pour que DHCPD ecoute sur eth0 :
+3) Editer le fichier /etc/default/isc-dhcp-server pour que DHCPD ecoute sur enp0s3 :
  ```bash
-INTERFACES = "eth0"
+INTERFACES = "enp0s3"
  ```
 
 
