@@ -9,8 +9,14 @@ et mettre les cartes réseaux des VM en "Réseau interne" et choisir un nom de r
 2) Il faut installer les paquets du DHCP serveur, en root :
 ```console
 # apt install isc-dhcp-server
-```  
-3) Editer le fichier de configuration du serveur :
+```
+3) Editer le fichier /etc/default/isc-dhcp-server pour que DHCPD ecoute sur eth0 :
+ ```bash
+INTERFACES = "eth0"
+ ```
+
+
+4) Editer le fichier de configuration du serveur :
 ```console
 $ sudo nano /etc/default/isc-dhcp-server
 ```
@@ -42,11 +48,20 @@ subnet 192.168.10.0 netmask 255.255.255.0 {
 ```
 2) Modifier pour obtenir :
 ```bash
-auto eth0
-iface eth0 inet static 
-  address 192.168.0.100
+auto enp0s3
+iface enp0s3 inet static 
+  address 172.20.0.10
   netmask 255.255.255.0
-  gateway 192.168.0.1
-  dns-nameservers 4.4.4.4
-  dns-nameservers 8.8.8.8
+  gateway 172.20.0.1
+```
+3) Sauvegarder et éditer le fichier /etc/resolv.conf
+```bash
+# nano /etc/resolv.conf
+nameserver 8.8.8.8 
+
+```
+4) Redémarrer
+```bash
+# /etc/init.d/network restart  [On SysVinit]
+# systemctl restart network    [On SystemD]
 ```
