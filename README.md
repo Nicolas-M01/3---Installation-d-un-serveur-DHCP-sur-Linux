@@ -36,10 +36,16 @@ subnet 192.168.10.0 netmask 255.255.255.0 {
         option domain-search            "tecmint.lan";
         option domain-name-servers      192.168.10.1;
         range   192.168.10.10   192.168.10.100;
-        range   192.168.10.110   192.168.10.200;
 }
 ```
-
+5)
+Ajouter les informations pour la machine statique, en indiqant son IP fixe et son adresse MAC :
+```bash
+host debian-node{
+ hardware ethernet 08:00:27:54:6d:d2;
+ fixed-address 172.20.0.10;
+}
+```
 
 ### Configuration pour la machine en IP statique
 1) Editer le ficher de config des interfaces réseau
