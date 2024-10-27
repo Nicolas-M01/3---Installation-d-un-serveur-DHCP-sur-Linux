@@ -1,7 +1,12 @@
 # 3---Installation-d-un-serveur-DHCP-sur-Linux
 
-1) Sur Virtual Box, monter une VM Ubuntu et mettre la carte réseau de la VM en "Réseau interne" et choisir un nom de réseau
-2) Il faut installer les paquets du DHCP server, en root :
+1) Sur Virtual Box, monter 3 VMs:
+* 1 Ubuntu en serveur
+* 1 Debian pour l'IP static
+* 1 XXXXXXX en DHCP
+et mettre les cartes réseaux des VM en "Réseau interne" et choisir un nom de réseau pour les 3 VMs
+### Configurer le Serveur
+2) Il faut installer les paquets du DHCP serveur, en root :
 ```console
 # apt install isc-dhcp-server
 ```  
@@ -27,4 +32,21 @@ subnet 192.168.10.0 netmask 255.255.255.0 {
         range   192.168.10.10   192.168.10.100;
         range   192.168.10.110   192.168.10.200;
 }
+```
+
+
+### Configuration pour la machine en IP statique
+1) Editer le ficher de config des interfaces réseau
+```console
+# nano /etc/network/interfaces
+```
+2) Modifier pour obtenir :
+```bash
+auto eth0
+iface eth0 inet static 
+  address 192.168.0.100
+  netmask 255.255.255.0
+  gateway 192.168.0.1
+  dns-nameservers 4.4.4.4
+  dns-nameservers 8.8.8.8
 ```
